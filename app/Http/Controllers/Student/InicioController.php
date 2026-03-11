@@ -8,7 +8,7 @@ use App\Models\Tablesquare;
 use App\Models\Tablewelcome;
 use App\Models\Tablerunauto;
 use App\Models\Tablequantitie;
-use App\Models\Tabledecano;
+use App\Models\TableDecano;
 use App\Models\Tableauditorio;
 use App\Models\Tablercu;
 use App\Models\Tablehorario;
