@@ -14,7 +14,7 @@ class TableFeatureController extends Controller
             ->where('estado',1)
             ->get();
 
-        dd($features);
+       
 
         return view('admin.features.index', compact('features','modulo'));
     }
