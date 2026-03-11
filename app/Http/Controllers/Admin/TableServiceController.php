@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tableservice;
+use App\Models\TableService;
 use Illuminate\Http\Request;
 
 class TableServiceController extends Controller
