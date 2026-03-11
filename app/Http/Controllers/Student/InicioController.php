@@ -6,14 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Tablecarrusel;
 use App\Models\Tablesquare;
 use App\Models\Tablewelcome;
-use App\Models\tablerunauto;
+use App\Models\Tablerunauto;
 use App\Models\Tablequantitie;
 use App\Models\Tabledecano;
 use App\Models\Tableauditorio;
 use App\Models\Tablercu;
 use App\Models\Tablehorario;
 use App\Models\Tablebachiller;
-
 use App\Models\Tableportfolio;
 
 class InicioController extends Controller
