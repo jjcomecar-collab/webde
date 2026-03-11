@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tablefeature extends Model
+class TableFeature extends Model
 {
     protected $table = 'tablefeatures';
 
