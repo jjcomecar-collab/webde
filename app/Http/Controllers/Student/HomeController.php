@@ -50,6 +50,8 @@ class HomeController extends Controller
             ->where('estado', 1)
             ->get();
 
+            dd($features);
+
         // VISTA SEGÚN MÓDULO
         $view = match ($modulo) {
             'cepejup'      => 'student.HCepejup.aCepejup',
