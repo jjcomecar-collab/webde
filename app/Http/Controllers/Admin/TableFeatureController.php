@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tablefeature;
+use App\Models\TableFeature;
 use Illuminate\Http\Request;
 
 class TableFeatureController extends Controller
