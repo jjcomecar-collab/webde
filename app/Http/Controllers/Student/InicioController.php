@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Tablecarrusel;
 use App\Models\Tablesquare;
-use App\Models\tablewelcome;
+use App\Models\Tablewelcome;
 use App\Models\tablerunauto;
 use App\Models\Tablequantitie;
 use App\Models\Tabledecano;
