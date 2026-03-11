@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\TableAbout;
-use App\Models\Tableservice;
-use App\Models\TableserviceDetail;
-use App\Models\Tablefeature;
+use App\Models\TableService;
+use App\Models\TableServiceDetail;
+use App\Models\TableFeature;
 use App\Models\TableAlumnotesista;
 
 
