@@ -1,0 +1,168 @@
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+    font-family: "Heebo", sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #52565b;
+    background-color: #fff;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #181d38;
+}
+
+
+h6, .h6 {
+    font-size: 1rem;
+}
+
+
+/* NO ELIMINAR */
+.me_container {   
+    width: 100%;
+    padding-right: var(--bs-gutter-x,  .75rem);
+    padding-left: var(--bs-gutter-x,  .75rem);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+/* NO ELIMINAR */
+@media (min-width: 1400px) {
+    .me_container {
+        max-width: 1320px;
+    }
+}
+
+
+/* NO ELIMINAR*/
+.me_py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+
+
+/* NO ELIMINAR */
+.me_row {
+    --bs-gutter-x:  1.5rem;
+    --bs-gutter-y:  0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(var(--bs-gutter-y) * -1);
+    margin-right: calc(var(--bs-gutter-x) / -2);
+    margin-left: calc(var(--bs-gutter-x) / -2);
+}
+
+
+.me_row>* {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) / 2);
+    padding-left: calc(var(--bs-gutter-x) / 2);
+    margin-top: var(--bs-gutter-y);
+}
+
+
+/* NO ELIMINAR */
+.me_g-5{
+    --bs-gutter-x:  3rem;
+}
+
+
+/* NO ELIMINAR */
+.me_g-5{
+    --bs-gutter-y:  3rem;
+}
+
+
+/* NO ELIMINAR */
+@media (min-width: 992px) {
+    .me_col-lg-6 {
+        flex: 0 0 auto;
+        width: 50%}
+}
+
+
+/* NO ELIMINAR */
+.me_position-relative {
+    position: relative !important;
+}
+
+
+/* NO ELIMINAR */
+.me_h-100 {
+    height: 100% !important;
+}
+
+
+/* NO ELIMINAR */
+.me_img-fluid {
+    max-width: 100%;
+    height:auto;   /*height: auto;*/
+}
+
+
+/* NO ELIMINAR */
+.me_position-absolute {
+    position: absolute !important;
+}
+
+
+/* NO ELIMINAR */
+.me_w-100 {
+    width: 100% !important;
+}
+
+
+/*** NO ELIMINAR ***/
+.me_section-title {
+    position: relative;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+
+/* NO ELIMINAR */
+.me_bg-white {
+    background-color: #fff !important;
+}
+
+
+/* NO ELIMINAR */
+.me_mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+
+/* NO ELIMINAR */
+.me_pe-3 {
+    padding-right: 1rem !important;
+}
+
+
+/* NO ELIMINAR */
+.me_text-primary {
+    color: #06BBCC !important;
+}
+
+
+/* NO ELIMINAR */
+.text-start {
+    text-align: left !important;
+}

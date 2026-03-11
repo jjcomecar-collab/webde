@@ -1,0 +1,31 @@
+
+.marquee-content {
+  animation: marquee 100s linear infinite running;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+.marquee-tag {
+  width: 100px;
+  transition: all 0.2s ease;
+}
+
+.marquee-tag:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translate(-50%);
+  }
+}
+
+.gap-8 {
+  gap: 40px !important;
+}
