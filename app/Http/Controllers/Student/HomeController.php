@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tableabout;
+use App\Models\TableAbout;
 use App\Models\Tableservice;
 use App\Models\TableserviceDetail;
 use App\Models\Tablefeature;
