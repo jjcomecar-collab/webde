@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\TableAuditorio;
+use App\Models\Tableauditorio;
 use Illuminate\Http\Request;
 
 class AuditorioController extends Controller
