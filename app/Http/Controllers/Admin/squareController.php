@@ -10,12 +10,18 @@ use Illuminate\Http\Request;
 class squareController extends Controller
 {
 
-public function index(Request $request)
-{
-    $squares = Tablesquare::orderBy('id','asc')->get();
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $squares = Tablesquare::orderBy('id','asc')->get();
 
-    dd($squares);
-}
+            return response()->json([
+                'data' => $squares
+            ]);
+        }
+
+        return view('admin.square.index');
+    }
 
 
 
