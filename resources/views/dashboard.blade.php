@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <p>Bienvenido al Panel Administración.</p>
+    <p>Bienvenido al Panel Administración NOW GOD</p>
 
     {{-- <a href="{{ route('backup.sql') }}" class="btn btn-primary">
         <i class="fas fa-database"></i> Descargar Backup SQL
