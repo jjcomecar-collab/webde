@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\Tablesquare;
+use App\Models\TableSquare;
 use Illuminate\Http\Request;
 
 class squareController extends Controller
