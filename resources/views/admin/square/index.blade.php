@@ -97,23 +97,25 @@ let editando = false;
 let squareEditId = null;
 let table;
 
+const squareIndexUrl = "{{ route('square.index', [], false) }}";
+const squareStoreUrl = "{{ route('square.store', [], false) }}";
+const squareBaseUrl  = "{{ url('/square') }}";
+
 $(document).ready(function() {
 
-    // Inicializar DataTable
     table = $('#tableSquares').DataTable({
-        // ajax: "{{ route('square.index') }}",
-        ajax: "{{ route('square.index', [], false) }}",
+        ajax: squareIndexUrl,
         columns: [
             { data: 'id' },
             { data: 'title' },
-            { 
+            {
                 data: 'icon',
                 render: function(data) {
                     return `<i class="${data}"></i>`;
                 }
             },
             { data: 'color_class' },
-            { 
+            {
                 data: 'url',
                 render: function(data) {
                     return `<a href="${data}" target="_blank">${data}</a>`;
@@ -138,47 +140,37 @@ $(document).ready(function() {
 
 });
 
-// -----------------------------
 // NUEVO
-// -----------------------------
 function nuevoSquare() {
     editando = false;
     squareEditId = null;
-
     $('#modalTitle').text('Nuevo Square');
     $('#formSquare')[0].reset();
     $('#modalSquare').modal('show');
 }
 
-// -----------------------------
 // EDITAR
-// -----------------------------
 function editarSquare(id) {
     editando = true;
     squareEditId = id;
 
-    $.get(`/square/${id}/edit`, function(square) {
+    $.get(`${squareBaseUrl}/${id}/edit`, function(square) {
         $('#modalTitle').text('Editar Square');
         $('#title').val(square.title);
         $('#icon').val(square.icon);
         $('#color_class').val(square.color_class);
         $('#url').val(square.url);
         $('#aos_delay').val(square.aos_delay);
-
         $('#modalSquare').modal('show');
     });
 }
 
-// -----------------------------
 // GUARDAR / ACTUALIZAR
-// -----------------------------
 $('#formSquare').submit(function(e) {
     e.preventDefault();
 
-    console.log('=== SE PRESIONÓ GUARDAR ===');
+    let url = squareStoreUrl;
 
-    // let url = "{{ route('square.store') }}";
-    let url = "{{ route('square.store', [], false) }}";
     let data = {
         _token: "{{ csrf_token() }}",
         title: $('#title').val(),
@@ -189,59 +181,33 @@ $('#formSquare').submit(function(e) {
     };
 
     if (editando) {
-        url = `/square/${squareEditId}`;
+        url = `${squareBaseUrl}/${squareEditId}`;
         data._method = 'PUT';
     }
-
-    console.log('URL:', url);
-    console.log('DATOS:', data);
-
-    alert('Se ejecutó el submit');
 
     $.ajax({
         url: url,
         type: 'POST',
         data: data,
-        beforeSend: function() {
-            console.log('=== ANTES DE ENVIAR AJAX ===');
-            alert('Enviando AJAX...');
-        },
         success: function(resp) {
-            console.log('=== SUCCESS ===');
-            console.log(resp);
-            alert('Guardó correctamente');
-
+            console.log('OK:', resp);
             $('#modalSquare').modal('hide');
             table.ajax.reload(null, false);
         },
-        error: function(xhr, status, error) {
-            console.log('=== ERROR AJAX ===');
-            console.log('STATUS HTTP:', xhr.status);
-            console.log('STATUS TEXT:', status);
-            console.log('ERROR:', error);
-            console.log('RESPONSE TEXT:', xhr.responseText);
-
-            alert(
-                'Error AJAX\n' +
-                'HTTP: ' + xhr.status + '\n' +
-                'Status: ' + status + '\n' +
-                'Error: ' + error
-            );
-        },
-        complete: function() {
-            console.log('=== FINALIZÓ AJAX ===');
+        error: function(xhr) {
+            console.error('STATUS:', xhr.status);
+            console.error('RESPUESTA:', xhr.responseText);
+            alert('❌ Error al guardar');
         }
     });
 });
 
-// -----------------------------
 // ELIMINAR
-// -----------------------------
 function eliminarSquare(id) {
     if (!confirm('¿Eliminar este Square?')) return;
 
     $.ajax({
-        url: `/square/${id}`,
+        url: `${squareBaseUrl}/${id}`,
         type: 'POST',
         data: {
             _method: 'DELETE',
@@ -257,7 +223,6 @@ function eliminarSquare(id) {
     });
 }
 </script>
-
 
 
 
