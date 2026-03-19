@@ -76,7 +76,8 @@
                 </div>
 
                 <div class="modal-footer">
-<button type="button" class="btn btn-success" onclick="probarBoton()">Guardar</button>                    
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 </div>
 
@@ -253,18 +254,37 @@ function eliminarSquare(id) {
         }
     });
 }
-
-
-
-
-
-function probarBoton() {
-    alert('Sí entra al botón');
-    console.log('Sí entra al botón');
-}
 </script>
 
 
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('formSquare');
 
+    if (!form) {
+        alert('No se encontró el formulario');
+        return;
+    }
+
+    alert('Formulario encontrado');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        alert('Submit capturado');
+
+        const data = {
+            title: document.getElementById('title').value,
+            icon: document.getElementById('icon').value,
+            color_class: document.getElementById('color_class').value,
+            url: document.getElementById('url').value,
+            aos_delay: document.getElementById('aos_delay').value
+        };
+
+        console.log('DATOS:', data);
+        alert('Mira la consola');
+    });
+});
+</script>
 @stop
