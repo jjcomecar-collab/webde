@@ -101,7 +101,8 @@ $(document).ready(function() {
 
     // Inicializar DataTable
     table = $('#tableSquares').DataTable({
-        ajax: "{{ route('square.index') }}",
+        // ajax: "{{ route('square.index') }}",
+        ajax: "{{ route('square.index', [], false) }}",
         columns: [
             { data: 'id' },
             { data: 'title' },
@@ -176,7 +177,8 @@ $('#formSquare').submit(function(e) {
 
     console.log('=== SE PRESIONÓ GUARDAR ===');
 
-    let url = "{{ route('square.store') }}";
+    // let url = "{{ route('square.store') }}";
+    let url = "{{ route('square.store', [], false) }}";
     let data = {
         _token: "{{ csrf_token() }}",
         title: $('#title').val(),
@@ -258,47 +260,5 @@ function eliminarSquare(id) {
 
 
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('formSquare');
 
-    form.addEventListener('submit', async function (e) {
-        e.preventDefault();
-
-        const url = "{{ route('square.store') }}";
-
-        alert('URL a enviar: ' + url);
-        console.log('URL a enviar:', url);
-
-        const data = new FormData();
-        data.append('_token', "{{ csrf_token() }}");
-        data.append('title', document.getElementById('title').value);
-        data.append('icon', document.getElementById('icon').value);
-        data.append('color_class', document.getElementById('color_class').value);
-        data.append('url', document.getElementById('url').value);
-        data.append('aos_delay', document.getElementById('aos_delay').value);
-
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                body: data,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'application/json'
-                }
-            });
-
-            const text = await response.text();
-
-            console.log('STATUS HTTP:', response.status);
-            console.log('RESPUESTA SERVIDOR:', text);
-            alert('HTTP: ' + response.status);
-
-        } catch (error) {
-            console.error('ERROR FETCH:', error);
-            alert('Error fetch: ' + error.message);
-        }
-    });
-});
-</script>
 @stop
