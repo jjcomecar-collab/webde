@@ -262,28 +262,40 @@ function eliminarSquare(id) {
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('formSquare');
 
-    if (!form) {
-        alert('No se encontró el formulario');
-        return;
-    }
-
-    alert('Formulario encontrado');
-
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        alert('Submit capturado');
+        const data = new FormData();
+        data.append('_token', "{{ csrf_token() }}");
+        data.append('title', document.getElementById('title').value);
+        data.append('icon', document.getElementById('icon').value);
+        data.append('color_class', document.getElementById('color_class').value);
+        data.append('url', document.getElementById('url').value);
+        data.append('aos_delay', document.getElementById('aos_delay').value);
 
-        const data = {
-            title: document.getElementById('title').value,
-            icon: document.getElementById('icon').value,
-            color_class: document.getElementById('color_class').value,
-            url: document.getElementById('url').value,
-            aos_delay: document.getElementById('aos_delay').value
-        };
+        console.log('ENVIANDO...');
+        console.log('URL:', "{{ route('square.store') }}");
 
-        console.log('DATOS:', data);
-        alert('Mira la consola');
+        try {
+            const response = await fetch("{{ route('square.store') }}", {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                }
+            });
+
+            const text = await response.text();
+
+            console.log('STATUS HTTP:', response.status);
+            console.log('RESPUESTA SERVIDOR:', text);
+
+            alert('HTTP: ' + response.status);
+        } catch (error) {
+            console.error('ERROR FETCH:', error);
+            alert('Error fetch: ' + error.message);
+        }
     });
 });
 </script>
