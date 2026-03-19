@@ -265,6 +265,11 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
+        const url = "{{ route('square.store') }}";
+
+        alert('URL a enviar: ' + url);
+        console.log('URL a enviar:', url);
+
         const data = new FormData();
         data.append('_token', "{{ csrf_token() }}");
         data.append('title', document.getElementById('title').value);
@@ -273,11 +278,8 @@ document.addEventListener('DOMContentLoaded', function () {
         data.append('url', document.getElementById('url').value);
         data.append('aos_delay', document.getElementById('aos_delay').value);
 
-        console.log('ENVIANDO...');
-        console.log('URL:', "{{ route('square.store') }}");
-
         try {
-            const response = await fetch("{{ route('square.store') }}", {
+            const response = await fetch(url, {
                 method: 'POST',
                 body: data,
                 headers: {
@@ -290,8 +292,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             console.log('STATUS HTTP:', response.status);
             console.log('RESPUESTA SERVIDOR:', text);
-
             alert('HTTP: ' + response.status);
+
         } catch (error) {
             console.error('ERROR FETCH:', error);
             alert('Error fetch: ' + error.message);
