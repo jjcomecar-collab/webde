@@ -173,6 +173,8 @@ function editarSquare(id) {
 $('#formSquare').submit(function(e) {
     e.preventDefault();
 
+    console.log('=== SE PRESIONÓ GUARDAR ===');
+
     let url = "{{ route('square.store') }}";
     let data = {
         _token: "{{ csrf_token() }}",
@@ -188,17 +190,43 @@ $('#formSquare').submit(function(e) {
         data._method = 'PUT';
     }
 
+    console.log('URL:', url);
+    console.log('DATOS:', data);
+
+    alert('Se ejecutó el submit');
+
     $.ajax({
         url: url,
         type: 'POST',
         data: data,
-        success: function() {
-            $('#modalSquare').modal('hide');
-            table.ajax.reload(null, false); // recarga la tabla sin resetear paginación
+        beforeSend: function() {
+            console.log('=== ANTES DE ENVIAR AJAX ===');
+            alert('Enviando AJAX...');
         },
-        error: function(xhr) {
-            console.error(xhr.responseText);
-            alert('❌ Error al guardar');
+        success: function(resp) {
+            console.log('=== SUCCESS ===');
+            console.log(resp);
+            alert('Guardó correctamente');
+
+            $('#modalSquare').modal('hide');
+            table.ajax.reload(null, false);
+        },
+        error: function(xhr, status, error) {
+            console.log('=== ERROR AJAX ===');
+            console.log('STATUS HTTP:', xhr.status);
+            console.log('STATUS TEXT:', status);
+            console.log('ERROR:', error);
+            console.log('RESPONSE TEXT:', xhr.responseText);
+
+            alert(
+                'Error AJAX\n' +
+                'HTTP: ' + xhr.status + '\n' +
+                'Status: ' + status + '\n' +
+                'Error: ' + error
+            );
+        },
+        complete: function() {
+            console.log('=== FINALIZÓ AJAX ===');
         }
     });
 });
