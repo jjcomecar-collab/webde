@@ -10,7 +10,7 @@ use App\Models\Tablerunauto;
 use App\Models\Tablequantitie;
 use App\Models\TableDecano;
 use App\Models\Tableauditorio;
-use App\Models\Tablercu;
+use App\Models\TableRcu;
 use App\Models\Tablehorario;
 use App\Models\Tablebachiller;
 use App\Models\Tableportfolio;
