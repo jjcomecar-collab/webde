@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\TableDocentepolitica;
+use App\Models\Tabledocentepolitica;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
