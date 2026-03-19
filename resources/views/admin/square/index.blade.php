@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Guardar</button>
+<button type="button" class="btn btn-success" onclick="probarBoton()">Guardar</button>                    
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 </div>
 
@@ -253,5 +253,18 @@ function eliminarSquare(id) {
         }
     });
 }
+
+
+
+
+
+function probarBoton() {
+    alert('Sí entra al botón');
+    console.log('Sí entra al botón');
+}
 </script>
+
+
+
+
 @stop
