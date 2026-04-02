@@ -6,7 +6,7 @@
 @section('content')
 <div class="container">
 
-    <h3 class="mb-3">Bienvenidos - Administración</h3>
+    <h3 class="mb-3">Bienvenidos - Administración - GOD</h3>
 
     {{-- ALERTA --}}
     @if(session('success'))
