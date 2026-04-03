@@ -101,19 +101,23 @@ $(document).ready(function() {
 
     // Inicializar DataTable
     table = $('#tableSquares').DataTable({
-        ajax: "{{ route('square.index') }}",
+        ajax: {
+            url: "{{ route('square.index') }}",
+            error: function(xhr, error, thrown) {
+                console.log(xhr.responseText);
+                alert('Error en AJAX');
+            }
+        },
         columns: [
             { data: 'id' },
             { data: 'title' },
-            { 
-                data: 'icon',
+            { data: 'icon',
                 render: function(data) {
                     return `<i class="${data}"></i>`;
                 }
             },
             { data: 'color_class' },
-            { 
-                data: 'url',
+            { data: 'url',
                 render: function(data) {
                     return `<a href="${data}" target="_blank">${data}</a>`;
                 }
