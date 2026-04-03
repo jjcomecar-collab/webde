@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Student\inicioController;  // front con DB
+use App\Http\Controllers\Student\InicioController;  // front con DB
 use App\Http\Controllers\Student\HistoriaVistaController;  // front con DB
 use App\Http\Controllers\Student\organigramaVistaController;  // front con DB
 use App\Http\Controllers\Student\autoridadevistaController;  // front con DB
@@ -87,7 +87,7 @@ use App\Http\Controllers\Admin\TableAlumnotesistaController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [inicioController::class, 'index'])->name('inicio');
+Route::get('/', [InicioController::class, 'index'])->name('inicio');
 
 
 Route::get('/historia_vista', [HistoriaVistaController::class, 'viewgod'])->name('historia');
