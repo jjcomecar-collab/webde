@@ -103,9 +103,11 @@ $(document).ready(function() {
     table = $('#tableSquares').DataTable({
         ajax: {
             url: "{{ route('square.index') }}",
+            dataSrc: 'data',
             error: function(xhr, error, thrown) {
-                console.log(xhr.responseText);
-                alert('Error en AJAX');
+                console.log("STATUS:", xhr.status);
+                console.log("RESPUESTA:", xhr.responseText);
+                alert("Error AJAX: revisa la consola");
             }
         },
         columns: [
