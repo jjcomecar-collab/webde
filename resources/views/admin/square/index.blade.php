@@ -108,20 +108,23 @@ $(document).ready(function() {
                 console.log("STATUS:", xhr.status);
                 console.log("ERROR:", error);
                 console.log("THROWN:", thrown);
-                console.log(xhr.responseText);
+                console.log("RESPUESTA:", xhr.responseText);
+                console.log(xhr);
                 alert("Error AJAX en square.data");
             }
         },
         columns: [
             { data: 'id' },
             { data: 'title' },
-            { data: 'icon',
+            {
+                data: 'icon',
                 render: function(data) {
                     return `<i class="${data}"></i>`;
                 }
             },
             { data: 'color_class' },
-            { data: 'url',
+            {
+                data: 'url',
                 render: function(data) {
                     return `<a href="${data}" target="_blank">${data}</a>`;
                 }
