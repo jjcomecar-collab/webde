@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tablesquare;
+use App\Models\TableSquare;
 use Illuminate\Http\Request;
 
 class SquareController extends Controller
 {
     public function index()
     {
-        $squares = Tablesquare::orderBy('id', 'asc')->get();
+        $squares = TableSquare::orderBy('id', 'asc')->get();
         return view('admin.square.index', compact('squares'));
     }
 
     public function store(Request $request)
     {
-        Tablesquare::create([
+        TableSquare::create([
             'title'       => $request->title,
             'icon'        => $request->icon,
             'color_class' => $request->color_class,
@@ -30,7 +30,7 @@ class SquareController extends Controller
 
     public function update(Request $request, $id)
     {
-        $square = Tablesquare::findOrFail($id);
+        $square = TableSquare::findOrFail($id);
 
         $square->update([
             'title'       => $request->title,
@@ -45,7 +45,7 @@ class SquareController extends Controller
 
     public function destroy($id)
     {
-        $square = Tablesquare::findOrFail($id);
+        $square = TableSquare::findOrFail($id);
         $square->delete();
 
         return redirect()->route('square.index')->with('success', 'Square eliminado correctamente');
