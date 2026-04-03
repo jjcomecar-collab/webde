@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\TableSquare;
 use Illuminate\Http\Request;
 
-class SquareController extends Controller
+// class SquareController extends Controller
+class squareController extends Controller
 {
 
     public function index(Request $request)

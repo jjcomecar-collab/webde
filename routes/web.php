@@ -147,7 +147,8 @@ Route::middleware([
     Route::resource('carrusel', CarruselController::class)->except(['show']);
 
     // 2) SQUARES CRUD
-    Route::resource('square', SquareController::class)->except(['show']);
+    // Route::resource('square', SquareController::class)->except(['show']);
+    Route::resource('square', squareController::class)->except(['show']);
 
     // 3)   WELCOME CRUD
     Route::resource('welcome', welcomeController::class)->except(['show']);
@@ -171,7 +172,6 @@ Route::middleware([
     // 9) PORTAFOLIO CRUD
     Route::resource('portafolio', portfolioController::class)->except(['show']);
     
-
 
     Route::resource('horario', horarioController::class)->except(['show']);
 

@@ -76,8 +76,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                    
+                    <button type="submit" class="btn btn-success">Guardar</button>      
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 </div>
 
@@ -89,13 +88,9 @@
 @stop
 
 @section('js')
-<!-- 1. jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <!-- jQuery DataTables -->
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-
 
 <script>
 let editando = false;
@@ -106,8 +101,7 @@ $(document).ready(function() {
 
     // Inicializar DataTable
     table = $('#tableSquares').DataTable({
-        // ajax: "{{ route('square.index') }}",
-        ajax: "/square",
+        ajax: "{{ route('square.index') }}",
         columns: [
             { data: 'id' },
             { data: 'title' },
@@ -180,7 +174,7 @@ function editarSquare(id) {
 $('#formSquare').submit(function(e) {
     e.preventDefault();
 
-    let url = "/square";
+    let url = "{{ route('square.store') }}";
     let data = {
         _token: "{{ csrf_token() }}",
         title: $('#title').val(),
@@ -199,16 +193,13 @@ $('#formSquare').submit(function(e) {
         url: url,
         type: 'POST',
         data: data,
-        success: function(resp) {
-            console.log('GUARDADO OK:', resp);
-            alert('Guardado correctamente');
+        success: function() {
             $('#modalSquare').modal('hide');
-            table.ajax.reload(null, false);
+            table.ajax.reload(null, false); // recarga la tabla sin resetear paginación
         },
         error: function(xhr) {
-            console.log('STATUS:', xhr.status);
-            console.log('RESPUESTA:', xhr.responseText);
-            alert('Error al guardar. STATUS: ' + xhr.status);
+            console.error(xhr.responseText);
+            alert('❌ Error al guardar');
         }
     });
 });
@@ -236,6 +227,4 @@ function eliminarSquare(id) {
     });
 }
 </script>
-
-
 @stop
