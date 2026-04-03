@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TableSquare extends Model
+class Tablesquare extends Model
 {
     protected $table = 'tablesquares';
 

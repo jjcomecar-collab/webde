@@ -3,56 +3,34 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\TableSquare;
+use App\Models\Tablesquare;
 use Illuminate\Http\Request;
 
-class SquareController extends Controller
+class squareController extends Controller
 {
     public function index()
     {
-        return view('admin.square.index');
-    }
-
-    public function data()
-    {
-        try {
-            $squares = TableSquare::orderBy('id', 'asc')->get();
-
-            return response()->json([
-                'data' => $squares
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'error' => true,
-                'message' => $e->getMessage(),
-                'line' => $e->getLine(),
-                'file' => $e->getFile(),
-            ], 500);
-        }
+        $squares = Tablesquare::orderBy('id', 'asc')->get();
+        return view('admin.square.index', compact('squares'));
     }
 
     public function store(Request $request)
     {
-        TableSquare::create([
+        Tablesquare::create([
             'title'       => $request->title,
             'icon'        => $request->icon,
             'color_class' => $request->color_class,
             'url'         => $request->url,
-            'aos_delay'   => $request->aos_delay ?? 100,
+            'aos_delay'   => $request->aos_delay,
             'estado'      => 1
         ]);
 
-        return response()->json(['ok' => true]);
-    }
-
-    public function edit($id)
-    {
-        return TableSquare::findOrFail($id);
+        return redirect()->route('square.index')->with('success', 'Square creado correctamente');
     }
 
     public function update(Request $request, $id)
     {
-        $square = TableSquare::findOrFail($id);
+        $square = Tablesquare::findOrFail($id);
 
         $square->update([
             'title'       => $request->title,
@@ -62,13 +40,14 @@ class SquareController extends Controller
             'aos_delay'   => $request->aos_delay
         ]);
 
-        return response()->json(['ok' => true]);
+        return redirect()->route('square.index')->with('success', 'Square actualizado correctamente');
     }
 
     public function destroy($id)
     {
-        TableSquare::findOrFail($id)->delete();
+        $square = Tablesquare::findOrFail($id);
+        $square->delete();
 
-        return response()->json(['ok' => true]);
+        return redirect()->route('square.index')->with('success', 'Square eliminado correctamente');
     }
 }

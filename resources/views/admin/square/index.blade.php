@@ -6,236 +6,156 @@
     <h1>Gestión de Squares</h1>
 @stop
 
-@section('css')
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-@endsection
-
 @section('content')
 
-{{-- BOTÓN CREAR --}}
-<button class="btn btn-primary mb-3" onclick="nuevoSquare()">
-    <i class="fas fa-plus"></i> Nuevo Square
-</button>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-{{-- TABLA DE LISTADO --}}
-<table id="tableSquares" class="display table table-bordered table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Título</th>
-            <th>Icono</th>
-            <th>Color</th>
-            <th>URL</th>
-            <th>AOS Delay</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-</table>
+    {{-- FORMULARIO --}}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 id="formTitle">Nuevo Square</h3>
+        </div>
 
-{{-- MODAL CREATE / EDIT --}}
-<div class="modal fade" id="modalSquare" tabindex="-1">
-    <div class="modal-dialog">
-        <form id="formSquare">
-            @csrf
-            <input type="hidden" id="square_id">
+        <div class="card-body">
+            <form id="formSquare" method="POST" action="{{ route('square.store') }}">
+                @csrf
+                <input type="hidden" name="_method" id="method" value="POST">
 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Nuevo Square</h5>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="form-group mb-3">
+                    <label for="title">Título</label>
+                    <input type="text" name="title" id="title" class="form-control" required>
                 </div>
 
-                <div class="modal-body">
-
-                    <div class="form-group">
-                        <label>Título</label>
-                        <input type="text" id="title" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Icono</label>
-                        <input type="text" id="icon" class="form-control" placeholder="bi bi-activity">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Clase color</label>
-                        <input type="text" id="color_class" class="form-control" placeholder="item-cyan">
-                    </div>
-
-                    <div class="form-group">
-                        <label>URL</label>
-                        <input type="url" id="url" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>AOS Delay</label>
-                        <input type="number" id="aos_delay" class="form-control" value="100">
-                    </div>
-
+                <div class="form-group mb-3">
+                    <label for="icon">Icono</label>
+                    <input type="text" name="icon" id="icon" class="form-control" placeholder="bi bi-activity">
                 </div>
 
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <div class="form-group mb-3">
+                    <label for="color_class">Clase Color</label>
+                    <input type="text" name="color_class" id="color_class" class="form-control" placeholder="item-cyan">
                 </div>
 
-            </div>
-        </form>
+                <div class="form-group mb-3">
+                    <label for="url">URL</label>
+                    <input type="url" name="url" id="url" class="form-control" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="aos_delay">AOS Delay</label>
+                    <input type="number" name="aos_delay" id="aos_delay" class="form-control" value="100">
+                </div>
+
+                <button type="submit" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancelar</button>
+            </form>
+        </div>
     </div>
-</div>
+
+    {{-- TABLA --}}
+    <div class="card">
+        <div class="card-header">
+            <h3>Lista de Squares</h3>
+        </div>
+
+        <div class="card-body table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Icono</th>
+                        <th>Color</th>
+                        <th>URL</th>
+                        <th>AOS Delay</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($squares as $square)
+                        <tr>
+                            <td>{{ $square->id }}</td>
+                            <td>{{ $square->title }}</td>
+                            <td>
+                                <i class="{{ $square->icon }}"></i>
+                                {{ $square->icon }}
+                            </td>
+                            <td>{{ $square->color_class }}</td>
+                            <td>
+                                <a href="{{ $square->url }}" target="_blank">
+                                    {{ $square->url }}
+                                </a>
+                            </td>
+                            <td>{{ $square->aos_delay }}</td>
+                            <td>
+                                <button
+                                    type="button"
+                                    class="btn btn-warning btn-sm btn-editar"
+                                    data-id="{{ $square->id }}"
+                                    data-title="{{ e($square->title) }}"
+                                    data-icon="{{ e($square->icon) }}"
+                                    data-color_class="{{ e($square->color_class) }}"
+                                    data-url="{{ e($square->url) }}"
+                                    data-aos_delay="{{ $square->aos_delay }}"
+                                >
+                                    Editar
+                                </button>
+
+                                <form action="{{ route('square.destroy', $square->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('¿Eliminar este square?')">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center">No hay registros</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 @stop
 
 @section('js')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- jQuery DataTables -->
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
 <script>
-let editando = false;
-let squareEditId = null;
-let table;
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.btn-editar').forEach(function (boton) {
+        boton.addEventListener('click', function () {
+            document.getElementById('formTitle').innerText = 'Editar Square';
 
-$(document).ready(function() {
+            document.getElementById('title').value = this.dataset.title;
+            document.getElementById('icon').value = this.dataset.icon;
+            document.getElementById('color_class').value = this.dataset.color_class;
+            document.getElementById('url').value = this.dataset.url;
+            document.getElementById('aos_delay').value = this.dataset.aos_delay;
 
-    // Inicializar DataTable
-    table = $('#tableSquares').DataTable({
-        ajax: {
-            url: "{{ route('square.data') }}",
-            dataSrc: 'data',
-            error: function(xhr, error, thrown) {
-                console.log("STATUS:", xhr.status);
-                console.log("ERROR:", error);
-                console.log("THROWN:", thrown);
-                console.log("RESPUESTA:", xhr.responseText);
-                console.log(xhr);
-                alert("Error AJAX en square.data");
-            }
-        },
-        columns: [
-            { data: 'id' },
-            { data: 'title' },
-            {
-                data: 'icon',
-                render: function(data) {
-                    return `<i class="${data}"></i>`;
-                }
-            },
-            { data: 'color_class' },
-            {
-                data: 'url',
-                render: function(data) {
-                    return `<a href="${data}" target="_blank">${data}</a>`;
-                }
-            },
-            { data: 'aos_delay' },
-            {
-                data: null,
-                render: function(row) {
-                    return `
-                        <button class="btn btn-sm btn-warning" onclick="editarSquare(${row.id})">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" onclick="eliminarSquare(${row.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    `;
-                }
-            }
-        ]
-    });
+            document.getElementById('formSquare').action = '/square/' + this.dataset.id;
+            document.getElementById('method').value = 'PUT';
 
-});
-
-// -----------------------------
-// NUEVO
-// -----------------------------
-function nuevoSquare() {
-    editando = false;
-    squareEditId = null;
-
-    $('#modalTitle').text('Nuevo Square');
-    $('#formSquare')[0].reset();
-    $('#modalSquare').modal('show');
-}
-
-// -----------------------------
-// EDITAR
-// -----------------------------
-function editarSquare(id) {
-    editando = true;
-    squareEditId = id;
-
-    $.get(`/square/${id}/edit`, function(square) {
-        $('#modalTitle').text('Editar Square');
-        $('#title').val(square.title);
-        $('#icon').val(square.icon);
-        $('#color_class').val(square.color_class);
-        $('#url').val(square.url);
-        $('#aos_delay').val(square.aos_delay);
-
-        $('#modalSquare').modal('show');
-    });
-}
-
-// -----------------------------
-// GUARDAR / ACTUALIZAR
-// -----------------------------
-$('#formSquare').submit(function(e) {
-    e.preventDefault();
-
-    let url = "{{ route('square.store') }}";
-    let data = {
-        _token: "{{ csrf_token() }}",
-        title: $('#title').val(),
-        icon: $('#icon').val(),
-        color_class: $('#color_class').val(),
-        url: $('#url').val(),
-        aos_delay: $('#aos_delay').val()
-    };
-
-    if (editando) {
-        url = `/square/${squareEditId}`;
-        data._method = 'PUT';
-    }
-
-    $.ajax({
-        url: url,
-        type: 'POST',
-        data: data,
-        success: function() {
-            $('#modalSquare').modal('hide');
-            table.ajax.reload(null, false); // recarga la tabla sin resetear paginación
-        },
-        error: function(xhr) {
-            console.error(xhr.responseText);
-            alert('❌ Error al guardar');
-        }
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     });
 });
 
-// -----------------------------
-// ELIMINAR
-// -----------------------------
-function eliminarSquare(id) {
-    if (!confirm('¿Eliminar este Square?')) return;
-
-    $.ajax({
-        url: `/square/${id}`,
-        type: 'POST',
-        data: {
-            _method: 'DELETE',
-            _token: "{{ csrf_token() }}"
-        },
-        success: function() {
-            table.ajax.reload(null, false);
-        },
-        error: function(xhr) {
-            console.error(xhr.responseText);
-            alert('❌ Error al eliminar');
-        }
-    });
+function resetForm() {
+    document.getElementById('formTitle').innerText = 'Nuevo Square';
+    document.getElementById('formSquare').action = "{{ route('square.store') }}";
+    document.getElementById('method').value = 'POST';
+    document.getElementById('formSquare').reset();
 }
 </script>
 @stop
