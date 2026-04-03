@@ -18,6 +18,8 @@ class TableAbout extends Model
         'items',
         'descripcion_final',
         'video_url',
+
+        'estado', // <-- AGREGAR
     ];
 
     protected $casts = [
