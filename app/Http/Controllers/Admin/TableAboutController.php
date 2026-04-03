@@ -10,7 +10,7 @@ class TableAboutController extends Controller
 {
     public function index($modulo)
     {
-        $abouts = TableAbout::where('modulo', $modulo)
+        $abouts = Tableabout::where('modulo', $modulo)
             ->where('estado', 1)
             ->get();
 
@@ -42,25 +42,27 @@ class TableAboutController extends Controller
 
         if ($request->video_url) {
             preg_match('/(youtu\.be\/|v=)([a-zA-Z0-9_-]{11})/', $request->video_url, $m);
-            $data['video_url'] = isset($m[2]) ? 'https://www.youtube.com/embed/' . $m[2] : null;
+            $data['video_url'] = 'https://www.youtube.com/embed/' . $m[2];
         }
 
-        TableAbout::create($data);
+        Tableabout::create($data);
 
         return back()->with('success', 'Creado correctamente');
     }
 
-    public function edit($modulo, TableAbout $about)
+
+    public function edit($modulo, Tableabout $about)
     {
-        $abouts = TableAbout::where('modulo', $modulo)
+        $abouts = Tableabout::where('modulo', $modulo)
             ->where('estado', 1)
             ->get();
 
         return view('admin.abouts.index', compact('abouts', 'about', 'modulo'));
     }
 
-    public function update(Request $request, $modulo, TableAbout $about)
+    public function update(Request $request, $modulo, Tableabout $about)
     {
+        // 1️⃣ Validación
         $request->validate([
             'video_url' => [
                 'nullable',
@@ -69,29 +71,39 @@ class TableAboutController extends Controller
             ],
         ]);
 
+        // 2️⃣ Data base
         $data = $request->except('modulo');
         $data['modulo'] = $modulo;
 
+        // 3️⃣ Imagen
         if ($request->hasFile('imagen')) {
             $nombre = time() . '.' . $request->imagen->extension();
             $request->imagen->move(public_path('imagenes'), $nombre);
             $data['imagen'] = $nombre;
         }
 
+        // 4️⃣ Items (JSON)
         $data['items'] = $request->items
             ? array_map('trim', explode(',', $request->items))
             : null;
 
+        // 5️⃣ Video YouTube → EMBED
         if ($request->video_url) {
-            preg_match('/(youtu\.be\/|v=)([a-zA-Z0-9_-]{11})/', $request->video_url, $matches);
+            preg_match(
+                '/(youtu\.be\/|v=)([a-zA-Z0-9_-]{11})/',
+                $request->video_url,
+                $matches
+            );
 
             $data['video_url'] = isset($matches[2])
                 ? 'https://www.youtube.com/embed/' . $matches[2]
                 : null;
         } else {
+            // si borran el campo, se limpia
             $data['video_url'] = null;
         }
 
+        // 6️⃣ Update
         $about->update($data);
 
         return redirect()
@@ -99,12 +111,10 @@ class TableAboutController extends Controller
             ->with('success', 'Actualizado correctamente');
     }
 
-    public function destroy($modulo, TableAbout $about)
+
+    public function destroy($modulo, Tableabout $about)
     {
         $about->update(['estado' => 0]);
-
-        return redirect()
-            ->route('admin.abouts.index', $modulo)
-            ->with('success', 'Eliminado correctamente');
+        return back();
     }
 }

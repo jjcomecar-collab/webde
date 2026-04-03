@@ -70,6 +70,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Titulo</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -78,6 +79,13 @@
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->titulo }}</td>
+                    <td>
+                        @if($item->estado == 1)
+                            <span class="badge bg-success">Activo</span>    
+                        @else
+                            <span class="badge bg-danger">Inactivo</span>
+                        @endif
+                    </td>
                     <td>
                         <a href="{{ route('admin.abouts.edit',[
                             'modulo'=>$modulo,'about'=>$item->id
