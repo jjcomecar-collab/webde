@@ -15,11 +15,20 @@ class SquareController extends Controller
 
     public function data()
     {
-        $squares = TableSquare::orderBy('id', 'asc')->get();
+        try {
+            $squares = TableSquare::orderBy('id', 'asc')->get();
 
-        return response()->json([
-            'data' => $squares
-        ]);
+            return response()->json([
+                'data' => $squares
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile(),
+            ], 500);
+        }
     }
 
     public function store(Request $request)
