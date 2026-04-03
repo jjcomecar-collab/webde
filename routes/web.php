@@ -147,7 +147,11 @@ Route::middleware([
     Route::resource('carrusel', carruselController::class)->except(['show']);
 
     // 2) SQUARES CRUD
+    // Route::resource('square', SquareController::class)->except(['show']); 
+    
+    Route::get('square-data', [SquareController::class, 'data'])->name('square.data');
     Route::resource('square', SquareController::class)->except(['show']);
+
 
     // 3)   WELCOME CRUD
     Route::resource('welcome', welcomeController::class)->except(['show']);

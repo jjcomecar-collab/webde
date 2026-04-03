@@ -102,12 +102,14 @@ $(document).ready(function() {
     // Inicializar DataTable
     table = $('#tableSquares').DataTable({
         ajax: {
-            url: "{{ route('square.index') }}",
+            url: "{{ route('square.data') }}",
             dataSrc: 'data',
             error: function(xhr, error, thrown) {
                 console.log("STATUS:", xhr.status);
-                console.log("RESPUESTA:", xhr.responseText);
-                alert("Error AJAX: revisa la consola");
+                console.log("ERROR:", error);
+                console.log("THROWN:", thrown);
+                console.log(xhr.responseText);
+                alert("Error AJAX en square.data");
             }
         },
         columns: [

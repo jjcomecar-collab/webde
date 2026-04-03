@@ -8,17 +8,18 @@ use Illuminate\Http\Request;
 
 class SquareController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->ajax()) {
-            $squares = TableSquare::orderBy('id', 'asc')->get();
-
-            return response()->json([
-                'data' => $squares
-            ]);
-        }
-
         return view('admin.square.index');
+    }
+
+    public function data()
+    {
+        $squares = TableSquare::orderBy('id', 'asc')->get();
+
+        return response()->json([
+            'data' => $squares
+        ]);
     }
 
     public function store(Request $request)
