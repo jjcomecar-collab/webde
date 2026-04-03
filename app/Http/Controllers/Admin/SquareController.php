@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Tablesquare;
 use Illuminate\Http\Request;
 
-class squareController extends Controller
+class SquareController extends Controller
 {
     public function index()
     {

@@ -33,7 +33,7 @@ use App\Http\Controllers\Student\acreditacionvistaController;
 
 
 use App\Http\Controllers\Admin\carruselController;
-use App\Http\Controllers\Admin\squareController;
+use App\Http\Controllers\Admin\SquareController;
 use App\Http\Controllers\Admin\welcomeController;
 use App\Http\Controllers\Admin\runautoController;
 use App\Http\Controllers\Admin\quantitieController;
@@ -147,7 +147,7 @@ Route::middleware([
     Route::resource('carrusel', carruselController::class)->except(['show']);
 
     // 2) SQUARES CRUD    
-    Route::resource('square', squareController::class)->except(['show']);
+    Route::resource('square', SquareController::class)->except(['show']);
 
 
     // 3)   WELCOME CRUD
