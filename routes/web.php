@@ -32,7 +32,7 @@ use App\Http\Controllers\Student\acreditacionvistaController;
 
 
 
-use App\Http\Controllers\Admin\CarruselController;
+use App\Http\Controllers\Admin\carruselController;
 use App\Http\Controllers\Admin\squareController;
 use App\Http\Controllers\Admin\welcomeController;
 use App\Http\Controllers\Admin\runautoController;
