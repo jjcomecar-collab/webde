@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\TableserviceDetail;
+use App\Models\TableServiceDetail;
 use Illuminate\Http\Request;
 
 class TableServiceDetailController extends Controller
