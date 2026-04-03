@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Models\TableSquare;
 use Illuminate\Http\Request;
 
-// class SquareController extends Controllerr
 class squareController extends Controller
 {
 
