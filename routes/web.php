@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Student\InicioController;  // front con DB
-use App\Http\Controllers\Student\historiavistaController;  // front con DB
-use App\Http\Controllers\Student\organigramavistaController;  // front con DB
+use App\Http\Controllers\Student\inicioController;  // front con DB
+use App\Http\Controllers\Student\HistoriaVistaController;  // front con DB
+use App\Http\Controllers\Student\organigramaVistaController;  // front con DB
 use App\Http\Controllers\Student\autoridadevistaController;  // front con DB
 use App\Http\Controllers\Student\administrativovistaController;  // front con DB
 use App\Http\Controllers\Student\docentederechovistaController;  // front con DB
 use App\Http\Controllers\Student\DecanofunvistaController;
-use App\Http\Controllers\Student\AdministradorfunvistaController;
+use App\Http\Controllers\Student\administradorfunvistaController;
 use App\Http\Controllers\Student\poivistaController;
 use App\Http\Controllers\Student\departamentovistaController;
 use App\Http\Controllers\Student\reprederechovistaController;
@@ -43,7 +43,7 @@ use App\Http\Controllers\Admin\rcuController;
 use App\Http\Controllers\Admin\portfolioController;
 use App\Http\Controllers\Admin\horarioController;
 use App\Http\Controllers\Admin\bachillerController;
-use App\Http\Controllers\Admin\HistoriaController;
+use App\Http\Controllers\Admin\historiaController;
 use App\Http\Controllers\Admin\organigramaController;
 use App\Http\Controllers\Admin\autoridadeController;
 use App\Http\Controllers\Admin\administrativoController;
@@ -57,7 +57,7 @@ use App\Http\Controllers\Admin\departamentoController;
 use App\Http\Controllers\Admin\reprederechoController;
 use App\Http\Controllers\Admin\reprepoliticaController;
 use App\Http\Controllers\Admin\responsocialController;
-use App\Http\Controllers\Admin\tramitecostoController;
+use App\Http\Controllers\Admin\TramitecostoController;
 
 use App\Http\Controllers\Admin\lineaController;
 
@@ -67,7 +67,7 @@ use App\Http\Controllers\Admin\normatividadController;
 
 
 
-use App\Http\Controllers\Admin\acreditacionController;
+use App\Http\Controllers\Admin\acreditacioncontroller;
 
 
 use App\Http\Controllers\Admin\TableAboutController;
@@ -87,7 +87,7 @@ use App\Http\Controllers\Admin\TableAlumnotesistaController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [InicioController::class, 'index'])->name('inicio');
+Route::get('/', [inicioController::class, 'index'])->name('inicio');
 
 
 Route::get('/historia_vista', [HistoriaVistaController::class, 'viewgod'])->name('historia');
@@ -96,10 +96,10 @@ Route::get('/autoridadesv', [autoridadevistaController::class, 'index'])->name('
 Route::get('/administrativov', [administrativovistaController::class, 'index'])->name('administrativo');
 Route::get('/docentes-derechov', [DocenteDerechoVistaController::class, 'index'])->name('docentederecho');
 
-Route::get('/docentes-politicav', [\App\Http\Controllers\Student\DocentepoliticavistaController::class, 'index'])->name('docentepolitica');
-Route::get('/consejo-Facultadv', [\App\Http\Controllers\Student\consejofacultadvistaController::class, 'index'])->name('consejofacultad');
+Route::get('/docentes-politicav', [\App\Http\Controllers\Student\docentepoliticavistaController::class, 'index'])->name('docentepolitica');
+Route::get('/consejo-Facultadv', [\App\Http\Controllers\Student\ConsejofacultadvistaController::class, 'index'])->name('consejofacultad');
 Route::get('/decanof', [DecanofunvistaController::class, 'index'])->name('decanofun');
-Route::get('/administradorf', [AdministradorfunvistaController::class, 'index'])->name('administradorfun');
+Route::get('/administradorf', [administradorfunvistaController::class, 'index'])->name('administradorfun');
 Route::get('/poiv', [poivistaController::class, 'index'])->name('poi');
 Route::get('/departamentov', [departamentovistaController::class, 'index'])->name('departamento');
 Route::get('/reprederechov', [reprederechovistaController::class, 'index'])->name('reprederecho');
@@ -144,7 +144,7 @@ Route::middleware([
 
 
     // 1) CARRUSEL CRUD
-    Route::resource('carrusel', CarruselController::class)->except(['show']);
+    Route::resource('carrusel', carruselController::class)->except(['show']);
 
     // 2) SQUARES CRUD
     Route::resource('square', squareController::class)->except(['show']);
@@ -170,14 +170,14 @@ Route::middleware([
 
     // 9) PORTAFOLIO CRUD
     Route::resource('portafolio', portfolioController::class)->except(['show']);
-    
+
 
     Route::resource('horario', horarioController::class)->except(['show']);
 
 
     Route::resource('bachiller', bachillerController::class)->except(['show']);
 
-    Route::resource('historia', HistoriaController::class)->except(['show']);
+    Route::resource('historia', historiaController::class)->except(['show']);
 
     Route::resource('organigrama', organigramaController::class)->except(['show']);
 
@@ -205,9 +205,9 @@ Route::middleware([
 
     Route::resource('responsocial', responsocialController::class)->except(['show']);
 
-    Route::resource('tramitecosto', tramitecostoController::class)->except(['show']);
+    Route::resource('tramitecosto', TramitecostoController::class)->except(['show']);
 
-    Route::resource('acreditacion', acreditacionController::class)->except(['show']);
+    Route::resource('acreditacion', acreditacioncontroller::class)->except(['show']);
 
     Route::resource('normatividad', normatividadController::class)->except(['show']);
 
