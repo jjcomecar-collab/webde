@@ -9,6 +9,8 @@ cmds = [
 
 [phases.build]
 cmds = [
+    "mkdir -p database",
+    "touch database/database.sqlite",
     "npm run build",
     "php artisan config:clear",
     "php artisan cache:clear",
