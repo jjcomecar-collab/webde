@@ -32,6 +32,8 @@ use App\Http\Controllers\Student\acreditacionvistaController;
 
 
 
+
+
 use App\Http\Controllers\Admin\carruselController;
 use App\Http\Controllers\Admin\SquareController;
 use App\Http\Controllers\Admin\welcomeController;
@@ -58,6 +60,8 @@ use App\Http\Controllers\Admin\reprederechoController;
 use App\Http\Controllers\Admin\reprepoliticaController;
 use App\Http\Controllers\Admin\responsocialController;
 use App\Http\Controllers\Admin\TramitecostoController;
+
+use App\Http\Controllers\Admin\circuloController;  // AGREGADO
 
 use App\Http\Controllers\Admin\lineaController;
 
@@ -106,6 +110,8 @@ Route::get('/reprederechov', [reprederechovistaController::class, 'index'])->nam
 Route::get('/reprepoliticav', [reprepoliticavistaController::class, 'index'])->name('reprepolitica');
 Route::get('/responsocialv', [responsocialvistaController::class, 'index'])->name('responsocial');
 Route::get('/tramites-costosv', [tramitecostovistaController::class, 'index'])->name('tramitecosto');
+
+Route::get('/circulov', [\App\Http\Controllers\Student\circulovistaController::class, 'index'])->name('circulo');  // AGREGADO
 
 Route::get('/lineav', [lineavistaController::class, 'index'])->name('linea');
 
@@ -207,6 +213,8 @@ Route::middleware([
     Route::resource('responsocial', responsocialController::class)->except(['show']);
 
     Route::resource('tramitecosto', TramitecostoController::class)->except(['show']);
+
+    Route::resource('circulo', circuloController::class)->except(['show']);  // AGREGADO
 
     Route::resource('acreditacion', acreditacioncontroller::class)->except(['show']);
 

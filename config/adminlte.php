@@ -658,6 +658,12 @@ return [
             ],
         ],
 
+        [  // AGREGADO
+            'text' => 'Circulos',
+            'route' => 'circulo.index',  
+            'icon' => 'far fa-fw fa-file',
+        ],
+
         ['header' => '--------------------------------------------'],
 
         [

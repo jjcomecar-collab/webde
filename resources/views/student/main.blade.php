@@ -123,9 +123,10 @@
                       <li><a href="{{ route('student.modulo', 'tutoria') }}">TUTORIA</a></li>
                   </ul>
                 </li>
+                <li><a href="{{route('circulo')}}">Circulos de Investigación</a></li>   <!-- AGREGADO -->
                 <li><a href="https://transparencia.unitru.edu.pe/doc/FUT.pdf" target="_blank" class="text-warning"><strong>F U T</strong></a></li>
             </ul>
-          </li>
+          </li> 
 
 
           <li class="dropdown"><a href="javascript:void(0)"><span>CARRERA</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
