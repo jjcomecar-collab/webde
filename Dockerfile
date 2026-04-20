@@ -35,4 +35,4 @@ RUN chmod -R 775 storage bootstrap/cache
 EXPOSE 10000
 
 # Iniciar servidor
-CMD php artisan serve --host=0.0.0.0 --port=10000
+CMD php -S 0.0.0.0:10000 -t public
