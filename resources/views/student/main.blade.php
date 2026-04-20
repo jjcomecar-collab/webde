@@ -31,7 +31,8 @@
   <link href="{{ asset('student/main/assets/css/main.css') }}" rel="stylesheet">
 
 
-
+<!-- 🔥 AGREGA ESTO -->
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 
   @yield('css')
 
